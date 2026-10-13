@@ -6,8 +6,15 @@
  * @returns {boolean} whether the wizard can cast the spell
  */
 function canCastSpell(isSpellPrepared, hasScroll) {
-  // TODO
+  if (isSpellPrepared || hasScroll) {
+    return true;
+  } else {
+    return false;
+  }
 }
+console.log(canCastSpell(true, false));
+console.log(canCastSpell(false, true));
+console.log(canCastSpell(false, false));
 
 /**
  * A creature is hidden from an observer if it is actively hiding
@@ -17,9 +24,15 @@ function canCastSpell(isSpellPrepared, hasScroll) {
  * @returns {boolean} whether the creature is hidden from the observer
  */
 function isHidden(hiding, aware) {
-  // TODO
+  if (hiding || !aware) {
+    return true;
+  } else {
+    return false;
+  }
 }
-
+console.log(isHidden(true, false));
+console.log(isHidden(false, true));
+console.log(isHidden(false, false));
 /**
  * A strike hits if the attack value is greater than or equal
  * to the target's armor class (AC).
@@ -28,8 +41,15 @@ function isHidden(hiding, aware) {
  * @returns {boolean} whether the strike hits
  */
 function doesStrikeHit(attack, ac) {
-  // TODO
+  if (attack >= ac) {
+    return true;
+  } else {
+    return false;
+  }
 }
+console.log(doesStrikeHit(12, 15));
+console.log(doesStrikeHit(16, 15));
+console.log(doesStrikeHit(15, 15));
 
 /**
  * A strike is a critical hit if the attack value is at least
@@ -39,8 +59,15 @@ function doesStrikeHit(attack, ac) {
  * @returns {boolean} whether the strike is a critical hit
  */
 function doesStrikeCrit(attack, ac) {
-  // TODO
+  if (attack >= ac + 10) {
+    return true;
+  } else {
+    return false;
+  }
 }
+console.log(doesStrikeCrit(25, 15));
+console.log(doesStrikeCrit(24, 15));
+console.log(doesStrikeCrit(26, 15));
 
 /**
  * A creature can restore hit points (HP) by healing,
@@ -51,8 +78,15 @@ function doesStrikeCrit(attack, ac) {
  * @returns {number} total hit points after healing
  */
 function heal(maxHp, currentHp, healAmount) {
-  // TODO
+  if (currentHp + healAmount > maxHp) {
+    return maxHp;
+  } else {
+    return currentHp + healAmount;
+  }
 }
+console.log(heal(100, 70, 30));
+console.log(heal(100, 50, 20));
+console.log(heal(100, 100, 50));
 
 /**
  * When a character uses a skill they have proficiency in,
@@ -71,8 +105,23 @@ function heal(maxHp, currentHp, healAmount) {
  * @returns {number} the character's proficiency bonus
  */
 function getProficiencyBonus(level, rank) {
-  // TODO
+  if (rank === "untrained") {
+    return 0;
+  } else if (rank === "trained") {
+    return level + 2;
+  } else if (rank === "expert") {
+    return level + 4;
+  } else if (rank === "master") {
+    return level + 6;
+  } else if (rank === "legendary") {
+    return level + 8;
+  }
 }
+console.log(getProficiencyBonus(2, "untrained"));
+console.log(getProficiencyBonus(2, "trained"));
+console.log(getProficiencyBonus(2, "expert"));
+console.log(getProficiencyBonus(2, "master"));
+console.log(getProficiencyBonus(2, "legendary"));
 
 /**
  * A creature can get a bonus to its armor class (AC) by taking cover.
@@ -85,8 +134,17 @@ function getProficiencyBonus(level, rank) {
  * @returns {number} the cover bonus to AC
  */
 function getCoverBonus(behindObstacle, takingCover) {
-  // TODO
+  if (behindObstacle && takingCover) {
+    return 4;
+  } else if (behindObstacle) {
+    return 2;
+  } else {
+    return 0;
+  }
 }
+console.log(getCoverBonus(true, false));
+console.log(getCoverBonus(true, true));
+console.log(getCoverBonus(false, true));
 
 /**
  * A creature's current hit points (HP) is reduced by taking damage.
@@ -101,8 +159,17 @@ function getCoverBonus(behindObstacle, takingCover) {
  * @returns {number} the creature's remaining HP after taking damage
  */
 function getRemainingHp(maxHp, currentHp, damage) {
-  // TODO
+  if (damage >= maxHp * 2) {
+    return -1;
+  } else if (currentHp - damage <= 0) {
+    return 0;
+  } else {
+    return currentHp - damage;
+  }
 }
+console.log(getRemainingHp(100, 80, 30));
+console.log(getRemainingHp(100, 50, 200));
+console.log(getRemainingHp(100, 50, 70));
 
 /**
  * All creatures can see in bright light.
@@ -113,8 +180,20 @@ function getRemainingHp(maxHp, currentHp, damage) {
  * @returns {boolean} whether the creature can see
  */
 function canSee(light, vision) {
-  // TODO
+  if (light === "bright") {
+    return true;
+  } else if (light === "dim" && vision === "low-light") {
+    return true;
+  } else if (light === "dark") {
+    return true;
+  } else {
+    return false;
+  }
 }
+console.log(canSee("bright", "average"));
+console.log(canSee("dim", "low-light"));
+console.log(canSee("dark", "dark"));
+console.log(canSee("dim", "average"));
 
 /**
  * A strike deals damage if it hits, unless the strike is a critical hit,
@@ -127,5 +206,14 @@ function canSee(light, vision) {
  * @returns {number} damage dealt by the strike
  */
 function getStrikeDamage(attack, ac, damage) {
-  // TODO
+  if (attack >= ac + 10) {
+    return damage * 2;
+  } else if (attack >= ac) {
+    return damage;
+  } else {
+    return 0;
+  }
 }
+console.log(getStrikeDamage(15, 15, 10));
+console.log(getStrikeDamage(25, 15, 10));
+console.log(getStrikeDamage(10, 15, 10));
